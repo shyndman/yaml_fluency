@@ -10,9 +10,9 @@ void main() {
         ..writeString('displayName', 'shyndman', quoted: false)
         ..writeBool('activated', true)
         ..writeString('bio', stripLeadingSpace('''
-          Scott really likes writing Dart. How much?
-          Quite a bit. It isnʼt quite there, but who
-          needs perfection, right?
+          Scott really likes writing Dart.
+          How much?
+          Quite a bit.
         '''), multiline: true)
         ..writeMap(
           'account',

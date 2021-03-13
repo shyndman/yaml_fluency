@@ -12,9 +12,9 @@ final userWriter = YamlMapWriter()
       ..writeString('displayName', 'shyndman', quoted: false)
       ..writeBool('activated', true)
       ..writeString('bio', stripLeadingSpace('''
-        Scott really likes writing Dart. How much?
-        Quite a bit. It's becoming a more interesting
-        language by the day!
+        Scott really likes writing Dart.
+        How much?
+        Quite a bit.
       '''), multiline: true)
       ..writeMap(
         'account',
