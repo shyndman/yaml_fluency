@@ -1,5 +1,8 @@
 # YAML Fluency
 
+[![Pub](https://img.shields.io/pub/v/yaml_fluency)](https://pub.dev/packages/yaml_fluency)
+[![Github test](https://github.com/madewithfelt/yaml_fluency/workflows/test/badge.svg?branch=main-null-unsafe)](https://github.com/madewithfelt/yaml_fluency/actions/workflows/test.yml?query=branch%3Amain-null-unsafe)
+
 Writes YAML strings fluently
 
 Write this:
