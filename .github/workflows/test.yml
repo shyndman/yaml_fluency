@@ -1,0 +1,37 @@
+name: test
+
+# This workflow is triggered on pushes to the repository.
+
+on: push    # Default will running for every branch.
+
+jobs:
+  test:
+    # This job will run on ubuntu virtual machine
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # We test against several Flutter versions
+        flutter_channel: [stable, beta]
+    steps:
+    - uses: actions/checkout@v1
+
+    # Setup the flutter environment.
+    - uses: subosito/flutter-action@v1.4.0
+      with:
+        channel: ${{ matrix.flutter_channel }}
+
+    # Get flutter dependencies.
+    - run: pub get
+
+    # Check for any formatting issues in the code.
+    - run: dart format --set-exit-if-changed .
+
+    # Statically analyze the Dart code for any errors.
+    - run: dart analyze ./lib
+
+    # Do the same for examples
+    - run: cd ./example && pub get
+    - run: dart analyze ./example
+
+    # Run widget tests for our flutter project.
+    - run: pub run test
