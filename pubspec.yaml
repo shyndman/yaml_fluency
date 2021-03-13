@@ -1,5 +1,7 @@
 name: yaml_fluency
-description: Write YAML using a fluent syntax
+description: >
+  Write YAML using a fluent syntax. Supports the core types you'd expect, and
+  can be extended easily.
 repository: https://github.com/madewithfelt/yaml_fluency
 version: 1.0.0
 
