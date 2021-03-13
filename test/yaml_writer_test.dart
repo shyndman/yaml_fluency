@@ -129,7 +129,7 @@ void main() {
       });
 
       test('Throw error if writer is disposed', () {
-        YamlMapWriter nestedMapWriter;
+        late YamlMapWriter nestedMapWriter;
         YamlMapWriter().writeMap('nested', (w) => nestedMapWriter = w);
 
         expect(
@@ -209,7 +209,7 @@ void main() {
       });
 
       test('Throw error if writer is disposed', () {
-        YamlListWriter nestedListWriter;
+        late YamlListWriter nestedListWriter;
         YamlListWriter().writeList((w) => nestedListWriter = w);
 
         expect(
