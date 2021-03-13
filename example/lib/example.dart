@@ -1,14 +1,40 @@
+import 'package:uuid/uuid.dart';
 import 'package:yaml_fluency/yaml_fluency.dart';
 
 void main() {
-  final mapWriter = YamlMapWriter()
+  final userWriter = YamlMapWriter()
     ..writeMap(
-      'a',
-      (w) => w
-        ..writeBool('a', true)
-        ..writeMap('b', (w) => w..writeNumber('a', 5))
-        ..writeString('c', 'a', quoted: false),
+      'man',
+      (man) => man
+        ..writeString('email', 'scott@madewithfelt.com')
+        ..writeString('displayName', 'shyndman', quoted: false)
+        ..writeBool('activated', true)
+        ..writeString('bio', stripLeadingSpace('''
+          Scott really likes writing Dart. How much?
+          Quite a bit. It isnʼt quite there, but who
+          needs perfection, right?
+        '''), multiline: true)
+        ..writeMap(
+          'account',
+          (account) => account
+            ..writeNumber('loginCount', 5)
+            ..writeString(
+              'ticket',
+              Uuid().v4(),
+            ),
+        ),
     )
-    ..writeString('b', 'this\nis\nmultiline', multiline: true);
-  print(mapWriter.toString());
+    ..writeMap(
+      'dog',
+      (dog) => dog
+        ..writeString('name', 'Henry')
+        ..writeNumber('weight (lbs)', 24.5)
+        ..writeBool('awesome', true),
+    );
+  print(userWriter.toString());
+}
+
+String stripLeadingSpace(String string) {
+  return string.replaceAllMapped(
+      RegExp(r'^\s+(.*)$', multiLine: true), (match) => match[1]);
 }
