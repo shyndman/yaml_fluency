@@ -1,21 +1,19 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 typedef ObjectWriteDelegate = void Function(YamlMapWriter);
 typedef ListWriteDelegate = void Function(YamlListWriter);
 
 class YamlScalarWriter extends _YamlWriter {
   YamlScalarWriter({
-    StringSink destination,
+    StringSink? destination,
     // The scalar writer only uses this value for indenting multiline strings
-    int indentation,
+    int? indentation,
   }) : super(destination: destination, indentation: indentation);
 
   void writeBool(bool value) => _write(value);
   void writeNumber(num value) => _write(value);
 
-  void writeString(String value, {bool multiline = false, bool quoted}) {
+  void writeString(String value, {bool multiline = false, bool? quoted}) {
     // The default is to quote, unless we're outputting multiline
     quoted ??= !multiline;
 
@@ -30,7 +28,7 @@ class YamlScalarWriter extends _YamlWriter {
     }
   }
 
-  void _writeSinglelineString(String string, {bool quoted}) {
+  void _writeSinglelineString(String string, {bool quoted = true}) {
     if (quoted) {
       final escapedString =
           string.replaceAll('"', r'\"').replaceAll('\n', r'\n');
@@ -48,14 +46,14 @@ class YamlScalarWriter extends _YamlWriter {
 
 class YamlListWriter extends _YamlWriter {
   YamlListWriter({
-    StringSink destination,
-    int indentation,
+    StringSink? destination,
+    int? indentation,
   }) : super(destination: destination, indentation: indentation) {
     _scalarWriter =
         YamlScalarWriter(destination: _sink, indentation: _indentation + 2);
   }
 
-  YamlScalarWriter _scalarWriter;
+  late YamlScalarWriter _scalarWriter;
 
   void writeBool(bool value) {
     _writeListItem();
@@ -69,7 +67,7 @@ class YamlListWriter extends _YamlWriter {
     newline();
   }
 
-  void writeString(String value, {bool multiline = false, bool quoted}) {
+  void writeString(String value, {bool multiline = false, bool? quoted}) {
     _writeListItem();
     _scalarWriter.writeString(value, multiline: multiline, quoted: quoted);
     newline();
@@ -113,8 +111,8 @@ class YamlListWriter extends _YamlWriter {
 
 class YamlMapWriter extends _YamlWriter {
   YamlMapWriter({
-    StringSink destination,
-    int indentation,
+    StringSink? destination,
+    int? indentation,
     this.omitFirstIndent = false,
     this.writeNullEntries = false,
   }) : super(destination: destination, indentation: indentation) {
@@ -133,30 +131,30 @@ class YamlMapWriter extends _YamlWriter {
   final bool writeNullEntries;
 
   /// Used to write scalar YAML values.
-  YamlScalarWriter _scalarWriter;
+  late YamlScalarWriter _scalarWriter;
 
-  void writeBool(String key, bool value) {
+  void writeBool(String key, bool? value) {
     _writeEntry(key, () {
-      _scalarWriter.writeBool(value);
+      _scalarWriter.writeBool(value!);
       return true;
     }, isValueNull: value == null);
   }
 
-  void writeNumber(String key, num value) {
+  void writeNumber(String key, num? value) {
     _writeEntry(key, () {
-      _scalarWriter.writeNumber(value);
+      _scalarWriter.writeNumber(value!);
       return true;
     }, isValueNull: value == null);
   }
 
   void writeString(
     String key,
-    String value, {
+    String? value, {
     bool multiline = false,
-    bool quoted,
+    bool? quoted,
   }) {
     _writeEntry(key, () {
-      _scalarWriter.writeString(value, multiline: multiline, quoted: quoted);
+      _scalarWriter.writeString(value!, multiline: multiline, quoted: quoted);
       return true;
     }, isValueNull: value == null);
   }
@@ -222,8 +220,8 @@ class YamlMapWriter extends _YamlWriter {
 
 class _YamlWriter {
   _YamlWriter({
-    StringSink destination,
-    int indentation,
+    StringSink? destination,
+    int? indentation,
   })  : _sink = destination ?? StringBuffer(),
         _indentation = indentation ?? 0,
         _indentWhitespace = ' ' * (indentation ?? 0);
@@ -260,7 +258,7 @@ class _YamlWriter {
     _hasWritten = true;
   }
 
-  String _prefixMultilineString(String value, {@required String prefix}) {
+  String _prefixMultilineString(String value, {required String prefix}) {
     return LineSplitter.split(value).map((line) => '$prefix$line').join('\n');
   }
 
