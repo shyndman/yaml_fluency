@@ -1,6 +1,7 @@
 name: yaml_fluency
-description: Writes YAML strings fluently
-publish_to: none
+description: Write YAML using a fluent syntax
+repository: https://github.com/madewithfelt/yaml_fluency
+version: 1.0.0
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
