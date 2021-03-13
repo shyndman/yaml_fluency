@@ -3,7 +3,7 @@ description: >
   Write YAML using a fluent syntax. Supports the core types you'd expect, and
   can be extended easily.
 repository: https://github.com/madewithfelt/yaml_fluency
-version: 2.0.0
+version: 2.0.1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
