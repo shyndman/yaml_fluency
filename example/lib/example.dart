@@ -10,9 +10,8 @@ void main() {
         ..writeString('displayName', 'shyndman', quoted: false)
         ..writeBool('activated', true)
         ..writeString('bio', stripLeadingSpace('''
-          Scott really likes writing Dart. How much?
-          Quite a bit. It isnʼt quite there, but who
-          needs perfection, right?
+          Ontario native, and dog whisperer.
+          Programming Dart/Flutter these days.
         '''), multiline: true)
         ..writeMap(
           'account',
@@ -29,7 +28,11 @@ void main() {
       (dog) => dog
         ..writeString('name', 'Henry')
         ..writeNumber('weight (lbs)', 24.5)
-        ..writeBool('awesome', true),
+        ..writeBool('awesome', true)
+        ..writeString('bio', stripLeadingSpace('''
+          California dog, coming to terms
+          with the Canadian winter.
+        '''), multiline: true),
     );
   print(userWriter.toString());
 }

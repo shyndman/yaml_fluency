@@ -12,9 +12,8 @@ final userWriter = YamlMapWriter()
       ..writeString('displayName', 'shyndman', quoted: false)
       ..writeBool('activated', true)
       ..writeString('bio', stripLeadingSpace('''
-        Scott really likes writing Dart. How much?
-        Quite a bit. It isnʼt quite there, but who
-        needs perfection, right?
+        Ontario native, and dog whisperer.
+        Programming Dart/Flutter these days.
       '''), multiline: true)
       ..writeMap(
         'account',
@@ -31,7 +30,11 @@ final userWriter = YamlMapWriter()
     (dog) => dog
       ..writeString('name', 'Henry')
       ..writeNumber('weight (lbs)', 24.5)
-      ..writeBool('awesome', true),
+      ..writeBool('awesome', true)
+      ..writeString('bio', stripLeadingSpace('''
+        California dog, coming to terms
+        with the Canadian winter.
+      '''), multiline: true),
   );
 ```
 
@@ -42,15 +45,16 @@ man:
   displayName: shyndman
   activated: true
   bio: |-
-    Scott really likes writing Dart. How much?
-    Quite a bit. It isnʼt quite there, but who
-    needs perfection, right?
+    Ontario native, and dog whisperer.
+    Programming Dart/Flutter these days.
   account:
     loginCount: 5
-    ticket: "30fe6ea4-cdaa-4b92-93a9-66a38d589fa7"
+    ticket: "d17933a8-4e24-4e66-9522-d59124f84503"
 dog:
   name: "Henry"
   weight (lbs): 24.5
   awesome: true
-
+  bio: |-
+    California dog, coming to terms
+    with the Canadian winter.
 ```
