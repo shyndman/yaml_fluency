@@ -11,6 +11,7 @@ class YamlScalarWriter extends _YamlWriter {
   }) : super(destination: destination, indentation: indentation);
 
   void writeBool(bool value) => _write(value);
+  void writeDate(DateTime date) => _write(date.toIso8601String());
   void writeNumber(num value) => _write(value);
 
   void writeString(String value, {bool multiline = false, bool? quoted}) {
@@ -58,6 +59,12 @@ class YamlListWriter extends _YamlWriter {
   void writeBool(bool value) {
     _writeListItem();
     _scalarWriter.writeBool(value);
+    newline();
+  }
+
+  void writeDate(DateTime value) {
+    _writeListItem();
+    _scalarWriter.writeDate(value);
     newline();
   }
 
@@ -136,6 +143,13 @@ class YamlMapWriter extends _YamlWriter {
   void writeBool(String key, bool? value) {
     _writeEntry(key, () {
       _scalarWriter.writeBool(value!);
+      return true;
+    }, isValueNull: value == null);
+  }
+
+  void writeDate(String key, DateTime? value) {
+    _writeEntry(key, () {
+      _scalarWriter.writeDate(value!);
       return true;
     }, isValueNull: value == null);
   }

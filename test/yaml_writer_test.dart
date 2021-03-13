@@ -7,6 +7,7 @@ void main() {
     test('Scalar entries', () {
       final mapWriter = YamlMapWriter()
         ..writeBool('bool', true)
+        ..writeDate('date', DateTime(1983, 4, 21))
         ..writeNumber('int', 1)
         ..writeNumber('double', 4.5)
         ..writeString('unquoted_string', 'This is a test', quoted: false)
@@ -20,6 +21,7 @@ void main() {
         loadYaml(mapWriter.toString()),
         {
           'bool': true,
+          'date': '1983-04-21T00:00:00.000',
           'int': 1,
           'double': 4.5,
           'single_line_string': 'This is a test',
